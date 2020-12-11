@@ -8,7 +8,11 @@ GET /songs
 
 params: none
 returns: Object {
-	[ song { //TODO
+	[ song {
+		id,
+		artist,
+		title,
+		source
 	}]
 }
 ```
