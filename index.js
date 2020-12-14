@@ -1,3 +1,6 @@
+//TODO: make it so a user can update songs
+//TODO: add "art" to Album schema definition
+
 const express = require('express')
 require('dotenv').config()
 const { Sequelize, Model, DataTypes } = require('sequelize')
@@ -61,6 +64,10 @@ Album.init({
 	title: {
 		type: DataTypes.STRING,
 		allowNull: false
+	},
+	art: {
+		type: DataTypes.STRING,
+		allowNull: false
 	}
 }, {
 	modelName: 'Album',
@@ -108,7 +115,7 @@ let upload = multer({ storage })
  * params: none
  * returns: Object
  */
-app.get('/songs', (req, res) => { //TODO: add order_by with album and artist
+app.get('/songs', (req, res) => { //TODO: add order_by with album and artist TODO: make try/catch block for if there are no songs
 	if (req.query['order_by']) {
 		if (!req.query['order_dir']) {
 			req.query['order_dir'] = "DESC";
@@ -323,7 +330,9 @@ app.post('/song/', upload.any(), (req, res) => {
 		let albumArt;
 		req.files.forEach(file => {
 			if (file.fieldname == "album_art") {
-				albumArt = file;
+				albumArt = file; // TODO: make it so that if there is no file it does not error
+				albumArt.path = process.env.SERVER_URL + albumArt.path.split('public')[1]
+				console.log(albumArt.path)
 			}
 		})
 
