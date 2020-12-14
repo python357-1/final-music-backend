@@ -9,8 +9,10 @@ const fs = require('fs')
 
 const [username, password, database] = [process.env.USERNAME, process.env.PASSWORD, process.env.DATABASE]
 const app = express();
+const cors = require('cors')
 
 app.use(express.static('public'))
+app.use(cors())
 
 const sequelize = new Sequelize(database, username, password, {
 	host: 'localhost',
@@ -356,6 +358,8 @@ app.post('/song/', upload.any(), (req, res) => {
 		req.files.forEach(file => {
 			if (file.fieldname == 'song_source') {
 				songSource = file;
+				songSource.path = process.env.SERVER_URL + songSource.path.split('public')[1]
+				console.log(songSource.path)
 			}
 		})
 
