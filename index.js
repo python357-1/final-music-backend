@@ -148,7 +148,7 @@ app.get('/songs/:artist', (req, res) => {
 			}
 		})
 
-		res.json({songs})
+		res.json(songs)
 	}
 
 	getSongs()
