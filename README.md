@@ -18,6 +18,22 @@ returns: Object {
 ```
 
 ```
+GET /songs/:artist
+
+params: <artist>
+returns: Array [
+	song {
+		id,
+		artist,
+		title,
+		source
+	}
+]
+
+```
+
+
+```
 GET /song/:title
 
 params: <title>

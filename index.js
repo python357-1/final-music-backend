@@ -140,7 +140,19 @@ app.get('/songs', (req, res) => { //TODO: add order_by with album and artist TOD
 	}
 })
 
+app.get('/songs/:artist', (req, res) => {
+	async function getSongs() {
+		let songs = await Song.findAll({
+			where: {
+				artist: req.params.artist
+			}
+		})
 
+		res.json({songs})
+	}
+
+	getSongs()
+})
 /**
  * this endpoint returns a song of a specific title (could return multiple if multiple are found)
  * params: song_title
